@@ -1,6 +1,6 @@
 #!/bin/bash
-sudo apt autoremove -y bluez
-sudo apt install -y build-essential libreadline-dev libical-dev libdbus-1-dev libudev-dev libglib2.0-dev python3-docutils
+sudo apt-get autoremove -y bluez
+sudo apt-get install -y build-essential libreadline-dev libical-dev libdbus-1-dev libudev-dev libglib2.0-dev python3-docutils
 wget http://www.kernel.org/pub/linux/bluetooth/bluez-5.66.tar.xz
 tar -xf bluez-*
 rm -r bluez-*.tar.xz
