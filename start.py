@@ -239,7 +239,7 @@ async def main():
     bus.export("/org/bluez/example/advertisement", advert)
     print("added advert")
     application = MarketMonitorApplication()
-    bus.export("/", application)
+    bus.export("/org/bluez/example", application)
     print("added app")
     service = MarketMonitorService("0xFFFF", "/org/bluez/example/service")
     bus.export("/org/bluez/example/service", service)
@@ -256,11 +256,13 @@ async def main():
     obj = bus.get_proxy_object("org.bluez", "/org/bluez/hci0", intro)
     adv_man_proxy = obj.get_interface("org.bluez.LEAdvertisingManager1")
     adapter_proxy = obj.get_interface("org.bluez.Adapter1")
+    gatt_manager = obj.get_interface("org.bluez.GattManager1")
     await adapter_proxy.set_powered(True)
     await adapter_proxy.set_discoverable(True)
     await adapter_proxy.set_pairable(True)
     before = await adv_man_proxy.get_active_instances()
     print(before)
+    appreg = await gatt_manager.call_register_application("/org/bluez/example", {})
     awd = await adv_man_proxy.call_register_advertisement(
         "/org/bluez/example/advertisement", {}
     )
