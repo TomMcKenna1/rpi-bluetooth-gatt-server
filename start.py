@@ -239,7 +239,7 @@ async def main():
     bus.export("/org/bluez/example/advertisement", advert)
     print("added advert")
     application = MarketMonitorApplication()
-    bus.export("/org/bluez/example", application)
+    bus.export("/", application)
     print("added app")
     service = MarketMonitorService("0xFFFF", "/org/bluez/example/service")
     bus.export("/org/bluez/example/service", service)
@@ -262,7 +262,7 @@ async def main():
     await adapter_proxy.set_pairable(True)
     before = await adv_man_proxy.get_active_instances()
     print(before)
-    appreg = await gatt_manager.call_register_application("/org/bluez/example", {})
+    appreg = await gatt_manager.call_register_application("/", {})
     awd = await adv_man_proxy.call_register_advertisement(
         "/org/bluez/example/advertisement", {}
     )
