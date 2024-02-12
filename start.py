@@ -263,11 +263,7 @@ async def main():
     await adapter_proxy.set_pairable(True)
     before = await adv_man_proxy.get_active_instances()
     print(before)
-    try:
-        appreg = await gatt_manager.call_register_application("/marketmonitor", {})
-    except Exception as e:
-        print(e)
-        exit()
+    appreg = await gatt_manager.call_register_application("/marketmonitor", {})
     awd = await adv_man_proxy.call_register_advertisement(
         "/org/bluez/example/advertisement", {}
     )
