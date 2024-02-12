@@ -92,12 +92,12 @@ class MarketMonitorChar(ServiceInterface):
         }
 
     @method()
-    def ReadValue(self, opt):
+    def ReadValue(self, opt: "a{sv}"):
         print("Read!")
         return self.value
 
     @method()
-    def WriteValue(self, val, opt):
+    def WriteValue(self, val: "ay", opt: "a{sv}"):
         self.value = val
         print("Written!")
 
