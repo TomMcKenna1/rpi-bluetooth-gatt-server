@@ -252,7 +252,6 @@ async def main():
     service.add_char(char)
     application.add_service(service)
     print("introspecting...")
-    bus = await bus.connect()
     intro = await bus.introspect("org.bluez", "/org/bluez/hci0")
     print("done")
     # print([[method.name for method in interface.methods] for interface in intro.interfaces])
