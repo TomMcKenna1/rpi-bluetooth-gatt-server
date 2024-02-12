@@ -17,10 +17,10 @@ class MarketMonitorApplication(ServiceInterface):
         response = {}
 
         for service in self.services:
-            response[service.get_path()] = service.get_properties()
+            response[service.get_path()] = {}
             chrcs = service.get_chars()
             for chrc in chrcs:
-                response[chrc.get_path()] = chrc.get_properties()
+                response[chrc.get_path()] = {}
 
         return response
 
@@ -240,7 +240,7 @@ async def main():
     bus.export("/org/bluez/example/advertisement", advert)
     print("added advert")
     application = MarketMonitorApplication()
-    bus.export("/org/bluez/example", application)
+    bus.export("/", application)
     print("added app")
     service = MarketMonitorService("0xFFFF", "/org/bluez/example/service")
     bus.export("/org/bluez/example/service", service)
@@ -264,7 +264,7 @@ async def main():
     before = await adv_man_proxy.get_active_instances()
     print(before)
     try:
-        appreg = await gatt_manager.call_register_application("/org/bluez/example", {})
+        appreg = await gatt_manager.call_register_application("/", {})
     except Exception as e:
         print(e)
         exit()
