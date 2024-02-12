@@ -73,11 +73,13 @@ class MarketMonitorService(ServiceInterface):
 
 class MarketMonitorChar(ServiceInterface):
     def __init__(self, path, uuid):
+        self.name = "marketmonitorchar"
         self.path = path
         self.service = "/".join(path.split("/")[0:-1])
         self.uuid = uuid
         self.flags = ["read", "write"]
         self.value = 1
+        super().__init__(self.name)
 
     def get_path(self):
         return self.path
