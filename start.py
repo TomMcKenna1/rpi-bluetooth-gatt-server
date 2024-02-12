@@ -237,6 +237,7 @@ class MarketMonitorAdvert(ServiceInterface):
 async def main():
     bus = MessageBus(bus_type=BusType.SYSTEM)
     advert = MarketMonitorAdvert()
+    bus = await bus.connect()
     bus.export("/org/bluez/example/advertisement", advert)
     print("added advert")
     application = MarketMonitorApplication()
