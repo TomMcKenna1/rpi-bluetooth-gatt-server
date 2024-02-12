@@ -44,7 +44,7 @@ class Service(ServiceInterface):
     def get_characteristics(self):
         return self.characteristics
 
-    @method()
+    @method('org.freedesktop.DBus.Properties')
     def GetAll(self, interface: 's') -> 'a{sv}':
         if interface != 'org.bluez.GattService1':
             raise Exception("Invalid interface name")

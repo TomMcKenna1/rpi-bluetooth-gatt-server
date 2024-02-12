@@ -44,7 +44,7 @@ class Characteristic(ServiceInterface):
     def get_descriptors(self):
         return self.descriptors
 
-    @method()
+    @method('org.freedesktop.DBus.Properties')
     def GetAll(self, interface: "s") -> "a{sv}":
         if interface != "org.bluez.GattCharacteristic1":
             raise Exception("Invalid interface")
@@ -71,6 +71,6 @@ class Characteristic(ServiceInterface):
         print("Default StopNotify called, returning error")
         raise Exception("Not supported")
 
-    @signal()
+    @signal('org.freedesktop.DBus.Properties')
     def PropertiesChanged(self, interface, changed, invalidated) -> "s":
         pass
