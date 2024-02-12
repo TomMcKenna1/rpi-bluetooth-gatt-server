@@ -27,7 +27,8 @@ async def main():
     bluez_gatt_manager = bluez_adapter.get_interface(GATT_MANAGER_IFACE)
     
     app = Application()
-
+    bus.export('/', app)
+    
     await bluez_gatt_manager.call_register_application(app.get_path(), {})
 
 asyncio.run(main())
