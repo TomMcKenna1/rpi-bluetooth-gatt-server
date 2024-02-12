@@ -66,7 +66,7 @@ class MarketMonitorService(ServiceInterface):
     def Includes(self) -> "ao":
         return self.includes
 
-    @Includes.setter()
+    @Includes.setter
     def Includes(self, value: "ao"):
         self.includes = value
 
