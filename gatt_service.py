@@ -18,7 +18,7 @@ class Service(ServiceInterface):
         self.uuid = uuid
         self.primary = primary
         self.characteristics = []
-        ServiceInterface.__init__(self, self.path)
+        ServiceInterface.__init__(self, 'org.bluez.GattService1')
 
     def get_properties(self):
         return {

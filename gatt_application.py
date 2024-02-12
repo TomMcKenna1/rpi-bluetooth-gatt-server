@@ -9,7 +9,7 @@ class Application(ServiceInterface):
     def __init__(self):
         self.path = "/"
         self.services = []
-        ServiceInterface.__init__(self, self.path)
+        ServiceInterface.__init__(self, 'org.freedesktop.DBus.ObjectManager')
 
     def get_path(self):
         return self.path
