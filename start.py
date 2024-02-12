@@ -263,3 +263,5 @@ async def main():
 
 
 asyncio.run(main())
+while True:
+    asyncio.sleep(1)
