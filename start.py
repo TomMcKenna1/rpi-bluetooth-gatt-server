@@ -102,7 +102,7 @@ async def main():
     bus.export(descriptor.get_path(), descriptor)
     characteristic.add_descriptor(descriptor)
     bus.export(characteristic.get_path(), characteristic)
-    service.add(characteristic)
+    service.add_characteristic(characteristic)
     bus.export(service.get_path(), service)
     app.add_service(service)
     bus.export("/", app)
