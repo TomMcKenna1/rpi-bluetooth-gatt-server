@@ -46,7 +46,7 @@ class MarketMonitorService(ServiceInterface):
                 "Characteristics": self.includes,
             }
         }
-    
+
     def get_chars(self):
         return self.chars
 
@@ -235,17 +235,23 @@ class MarketMonitorAdvert(ServiceInterface):
 
 async def main():
     bus = await MessageBus(bus_type=BusType.SYSTEM).connect()
-    intro = await bus.introspect("org.bluez", "/org/bluez/hci0")
     advert = MarketMonitorAdvert()
+    bus.export("/org/bluez/example/advertisement", advert)
+    print("added advert")
     application = MarketMonitorApplication()
+    bus.export("/", application)
+    print("added app")
     service = MarketMonitorService("0xFFFF", "/org/bluez/example/service")
+    bus.export("/org/bluez/example/service", service)
+    print("added service")
     char = MarketMonitorChar("0x1234", "/org/bluez/example/service/char1")
+    bus.export("/org/bluez/example/service/char1", char)
+    print("added characteristic")
     service.add_char(char)
     application.add_service(service)
-    bus.export("/org/bluez/example/service/char1", char)
-    bus.export("/org/bluez/example/service", service)
-    bus.export("/", application)
-    bus.export("/org/bluez/example/advertisement", advert)
+    print("introspecting...")
+    intro = await bus.introspect("org.bluez", "/org/bluez/hci0")
+    print("done")
     # print([[method.name for method in interface.methods] for interface in intro.interfaces])
     obj = bus.get_proxy_object("org.bluez", "/org/bluez/hci0", intro)
     adv_man_proxy = obj.get_interface("org.bluez.LEAdvertisingManager1")
