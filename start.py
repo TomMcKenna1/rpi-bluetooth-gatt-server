@@ -90,6 +90,7 @@ class MarketMonitorChar(ServiceInterface):
                 "Service": self.service,
                 "UUID": self.uuid,
                 "Flags": self.flags,
+                "Descriptors": []
             }
         }
 
@@ -238,17 +239,17 @@ async def main():
     advert = MarketMonitorAdvert()
     bus.export("/org/bluez/example/advertisement", advert)
     print("added advert")
-    # application = MarketMonitorApplication()
-    # bus.export("/", application)
-    # print("added app")
-    # service = MarketMonitorService("0xFFFF", "/org/bluez/example/service")
-    # bus.export("/org/bluez/example/service", service)
-    # print("added service")
-    # char = MarketMonitorChar("0x1234", "/org/bluez/example/service/char1")
-    # bus.export("/org/bluez/example/service/char1", char)
-    # print("added characteristic")
-    # service.add_char(char)
-    # application.add_service(service)
+    application = MarketMonitorApplication()
+    bus.export("/marketmonitor", application)
+    print("added app")
+    service = MarketMonitorService("0xFFFF", "/org/bluez/example/service")
+    bus.export("/org/bluez/example/service", service)
+    print("added service")
+    char = MarketMonitorChar("0x1234", "/org/bluez/example/service/char1")
+    bus.export("/org/bluez/example/service/char1", char)
+    print("added characteristic")
+    service.add_char(char)
+    application.add_service(service)
     print("introspecting...")
     intro = await bus.introspect("org.bluez", "/org/bluez/hci0")
     print("done")
@@ -263,7 +264,7 @@ async def main():
     before = await adv_man_proxy.get_active_instances()
     print(before)
     try:
-        appreg = await gatt_manager.call_register_application("/", {})
+        appreg = await gatt_manager.call_register_application("/marketmonitor", {})
     except Exception as e:
         print(e)
         exit()
