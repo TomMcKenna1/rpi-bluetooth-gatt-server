@@ -240,7 +240,7 @@ async def main():
     bus.export("/org/bluez/example/advertisement", advert)
     print("added advert")
     application = MarketMonitorApplication()
-    bus.export("/awd", application)
+    bus.export("/org/bluez/example", application)
     print("added app")
     service = MarketMonitorService("0xFFFF", "/org/bluez/example/service")
     bus.export("/org/bluez/example/service", service)
@@ -264,7 +264,7 @@ async def main():
     before = await adv_man_proxy.get_active_instances()
     print(before)
     try:
-        appreg = await gatt_manager.call_register_application("/awd", {})
+        appreg = await gatt_manager.call_register_application("/org/bluez/example", {})
     except Exception as e:
         print(e)
         exit()
