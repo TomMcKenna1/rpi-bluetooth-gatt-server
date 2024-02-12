@@ -235,7 +235,7 @@ class MarketMonitorAdvert(ServiceInterface):
 
 
 async def main():
-    bus = await MessageBus(bus_type=BusType.SYSTEM).connect()
+    bus = MessageBus(bus_type=BusType.SYSTEM)
     advert = MarketMonitorAdvert()
     bus.export("/org/bluez/example/advertisement", advert)
     print("added advert")
@@ -251,6 +251,7 @@ async def main():
     service.add_char(char)
     application.add_service(service)
     print("introspecting...")
+    bus = await bus.connect()
     intro = await bus.introspect("org.bluez", "/org/bluez/hci0")
     print("done")
     # print([[method.name for method in interface.methods] for interface in intro.interfaces])
