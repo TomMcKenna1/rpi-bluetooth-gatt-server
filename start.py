@@ -28,6 +28,6 @@ async def main():
     
     app = Application()
 
-    bluez_gatt_manager.call_register_application(app.get_path(), {})
+    await bluez_gatt_manager.call_register_application(app.get_path(), {})
 
 asyncio.run(main())
