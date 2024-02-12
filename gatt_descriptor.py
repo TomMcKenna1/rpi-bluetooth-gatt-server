@@ -11,8 +11,8 @@ class Descriptor(ServiceInterface):
         self.uuid = uuid
         self.flags = flags
         self.chrc = characteristic
-        ServiceInterface.__init__(self, 'org.bluez.GattDescriptor1')
         ServiceInterface.__init__(self, 'org.freedesktop.DBus.Properties')
+        ServiceInterface.__init__(self, 'org.bluez.GattDescriptor1')
 
     def get_properties(self):
         return {
