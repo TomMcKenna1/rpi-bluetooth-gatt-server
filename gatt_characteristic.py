@@ -18,6 +18,7 @@ class Characteristic(ServiceInterface):
         self.flags = flags
         self.descriptors = []
         ServiceInterface.__init__(self, 'org.bluez.GattCharacteristic1')
+        ServiceInterface.__init__(self, 'org.freedesktop.DBus.Properties')
 
     def get_properties(self):
         return {
