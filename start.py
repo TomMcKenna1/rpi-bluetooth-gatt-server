@@ -235,6 +235,7 @@ class MarketMonitorAdvert(ServiceInterface):
 
 async def main():
     bus = await MessageBus(bus_type=BusType.SYSTEM).connect()
+    intro = await bus.introspect("org.bluez", "/org/bluez/hci0")
     advert = MarketMonitorAdvert()
     application = MarketMonitorApplication()
     service = MarketMonitorService("0xFFFF", "/org/bluez/example/service")
@@ -245,7 +246,6 @@ async def main():
     bus.export("/org/bluez/example/service", service)
     bus.export("/", application)
     bus.export("/org/bluez/example/advertisement", advert)
-    intro = await bus.introspect("org.bluez", "/org/bluez/hci0")
     # print([[method.name for method in interface.methods] for interface in intro.interfaces])
     obj = bus.get_proxy_object("org.bluez", "/org/bluez/hci0", intro)
     adv_man_proxy = obj.get_interface("org.bluez.LEAdvertisingManager1")
