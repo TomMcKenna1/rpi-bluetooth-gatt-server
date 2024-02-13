@@ -25,7 +25,7 @@ class Descriptor(ServiceInterface):
     def get_path(self):
         return self.path
 
-    @method('DBus.Properties')
+    @method()
     def GetAll(self, interface: "s") -> "a{sv}":
         if interface != "org.bluez.GattDescriptor1":
             raise Exception("Invalid interface")
