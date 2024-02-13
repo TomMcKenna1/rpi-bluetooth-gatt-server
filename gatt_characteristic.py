@@ -32,7 +32,7 @@ class Characteristic(ServiceInterface):
     
     @dbus_property(PropertyAccess.READ)
     def Service(self) -> 'o':
-        return self.service.get_path()
+        return Variant('o', self.service.get_path())
     
     def get_path(self):
         return self.path
