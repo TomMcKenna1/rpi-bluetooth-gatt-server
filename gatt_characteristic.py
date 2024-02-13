@@ -1,6 +1,6 @@
 from dbus_fast.service import ServiceInterface, method, signal, dbus_property
 from dbus_fast.constants import PropertyAccess
-
+from dbus_fast import Variant
 
 class Characteristic(ServiceInterface):
     """
@@ -23,10 +23,10 @@ class Characteristic(ServiceInterface):
     def get_properties(self):
         return {
             "org.bluez.GattCharacteristic1": {
-                "Service": self.service.get_path(),
-                "UUID": self.uuid,
-                "Flags": self.flags,
-                "Descriptors": self.get_descriptor_paths(),
+                "Service": Variant('o', self.service.get_path()),
+                "UUID": Variant('s', self.uuid),
+                "Flags": Variant('as', self.flags),
+                "Descriptors": Variant('ao', self.get_descriptor_paths()),
             }
         }
     
