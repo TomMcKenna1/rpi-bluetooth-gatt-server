@@ -1,4 +1,5 @@
 from dbus_fast.service import ServiceInterface, method, signal
+from dbus_fast.constants import PropertyAccess
 
 
 class Characteristic(ServiceInterface):
@@ -28,7 +29,10 @@ class Characteristic(ServiceInterface):
                 "Descriptors": self.get_descriptor_paths(),
             }
         }
-
+    @dbus_property(PropertyAccess.READ)
+    def Service(self):
+        return self.service.get_path()
+    
     def get_path(self):
         return self.path
 
